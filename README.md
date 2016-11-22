@@ -1,6 +1,6 @@
-## mobile-android-maps-app
+## Offline Maps app for Android
 
-Complete mobile app featuring offline map and routes. Uses CARTO Mobile SDK. 
+Complete mobile app featuring offline map and routes. Was published as "Nutiteq Offline Maps 3D app". Uses CARTO Mobile SDK: www.carto.com/mobile
 
 It has a separate **nuticomponents** module that contains components free to use in your own application:
 
