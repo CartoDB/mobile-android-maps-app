@@ -1,0 +1,150 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nutiteq.app.nutimap3d.dev"
+    android:installLocation="auto"
+    android:versionCode="455"
+    android:versionName="3.1" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- uses-permission android:name="android.permission.READ_LOGS" / -->
+
+    <application
+        android:name="com.nutiteq.app.MapApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <uses-library
+            android:name="com.sec.android.app.multiwindow"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.sec.android.support.multiwindow"
+            android:value="true" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W"
+            android:value="632.0dip" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H"
+            android:value="598.0dip" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W"
+            android:value="632.0dip" />
+        <meta-data
+            android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H"
+            android:value="598.0dip" />
+
+        <activity
+            android:name="com.nutiteq.app.map.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/ThemeMainActivity"
+            android:windowSoftInputMode="stateUnchanged" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+            </intent-filter>
+
+            <!-- MainActivity is also the searchable activity -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <!-- enable the main activity to send searches to itself -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="com.nutiteq.app.nutimap2.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.nutiteq.app.search.SearchableActivity"
+            android:exported="false"
+            android:label="@string/menu_search"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.nutiteq.app.map.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
+        <activity
+            android:name="com.nutiteq.app.info.InfoActivity"
+            android:label="@string/info_activity_name"
+            android:parentActivityName="com.nutiteq.app.map.MainActivity" >
+
+            <!-- Parent activity meta-data to support API level 4+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nutiteq.app.map.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.nutiteq.nuticomponents.packagemanager.PackageDownloadListActivity"
+            android:label="@string/download_activity"
+            android:parentActivityName="com.nutiteq.app.map.MainActivity" >
+
+            <!-- Parent activity meta-data to support API level 4+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nutiteq.app.map.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.nutiteq.app.locationbookmarks.LocationBookmarksListActivity"
+            android:label="@string/bookmarks_menu"
+            android:parentActivityName="com.nutiteq.app.map.MainActivity" >
+
+            <!-- Parent activity meta-data to support API level 4+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nutiteq.app.map.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.nutiteq.app.settings.froyo.and.gingerbread.SettingsActivity9"
+            android:label="@string/settings"
+            android:parentActivityName="com.nutiteq.app.map.MainActivity" >
+
+            <!-- Parent activity meta-data to support API level 4+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nutiteq.app.map.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.nutiteq.app.settings.honeycomb.and.newer.SettingsActivity11"
+            android:label="@string/settings"
+            android:parentActivityName="com.nutiteq.app.map.MainActivity" >
+
+            <!-- Parent activity meta-data to support API level 4+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.nutiteq.app.map.MainActivity" />
+        </activity>
+
+        <service
+            android:name="com.nutiteq.nuticomponents.packagemanager.PackageDownloadService"
+            android:exported="false" />
+        <service
+            android:name="com.nutiteq.nuticomponents.locationtracking.GPSTrackingService"
+            android:exported="false" />
+
+        <!-- required for HOCKEY SDK -->
+        <activity android:name="net.hockeyapp.android.FeedbackActivity" />
+        <activity android:name="net.hockeyapp.android.UpdateActivity" />
+    </application>
+
+</manifest>

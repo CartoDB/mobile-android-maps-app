@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/layers_layout" >
+
+    <FrameLayout
+        android:id="@+id/test_bed"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/white" />
+    <!-- We will add the DSLVFragment inside the FrameLayout in code -->
+
+    <com.nutiteq.nuticomponents.customviews.AnimatedExpandableListView
+        android:id="@+id/layer_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        android:choiceMode="singleChoice"
+        android:divider="@color/gray"
+        android:dividerHeight="1dp"
+        android:groupIndicator="@null"
+        android:listSelector="@xml/selector" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/save_layers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/load_layers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/layers_load" />
+    </LinearLayout>
+
+</LinearLayout>

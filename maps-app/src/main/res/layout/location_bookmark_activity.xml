@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:color/white"
+        android:paddingLeft="12dp"
+        android:paddingTop="13dp"
+        android:text="@string/saved_locations"
+        android:textColor="#8C8C8C"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.nutiteq.app.locationbookmarks.LocationBookmarkListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.nutiteq.app.locationbookmarks.LocationBookmarkListView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+    </LinearLayout>
+
+</LinearLayout>

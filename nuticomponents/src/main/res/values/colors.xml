@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="nutiteq_green">#00b483</color>
+    <color name="search_title">#313131</color>
+    <color name="search_desc">#888888</color>
+    <color name="gray">#eeeeee</color>
+    <color name="gray2">#aaaaaa</color>
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#FD7D09</color>
+
+</resources>

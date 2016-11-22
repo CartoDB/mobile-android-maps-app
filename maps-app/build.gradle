@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 21
+        versionCode 64
+    }
+
+    productFlavors {
+        development {
+            applicationId "com.carto.maps.app.droid"
+            versionCode System.getenv("BUILD_NUMBER") as Integer ?: 666
+        }
+        publicRelease {
+            applicationId "com.carto.maps.app.droid"
+            versionCode 64 // live
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+        }
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a','armeabi','x86','arm64-v8a','mips'
+            universalApk false
+        }
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+
+        if (names.contains("publicRelease") && variant.buildType.name == "debug") {
+            variant.ignore = true
+        }
+        if (names.contains("development") && variant.buildType.name == "release") {
+            variant.ignore = true
+        }
+
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "http://repository-nutiteq.forge.cloudbees.com/release/"
+        }
+        maven {
+            url "http://repository-nutiteq.forge.cloudbees.com/snapshot/"
+        }
+    }
+}
+
+// map for the version code
+ext.versionCodes = ['armeabi':0, 'armeabi-v7a':1, 'arm64-v8a':2, 'mips':3, 'x86':4]
+
+import com.android.build.OutputFile
+
+android.applicationVariants.all { variant ->
+    // assign different version code for each output
+    variant.outputs.each { output ->
+        output.versionCodeOverride =
+                project.ext.versionCodes.get(output.getFilter(OutputFile.ABI)) + android.defaultConfig.versionCode
+    }
+}
+
+dependencies {
+    compile project(':nuticomponents')
+    compile 'com.carto:carto-mobile-sdk:snapshot@aar'
+    compile 'net.hockeyapp.android:HockeySDK:3.7.0'
+    compile 'com.firebase:firebase-client-android:2.5.0+'
+}

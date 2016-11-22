@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|left"
+            android:paddingLeft="10dp"
+            android:text="@string/source"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="http://" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|left"
+            android:paddingLeft="10dp"
+            android:text="@string/min_zoom"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/min_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|left"
+            android:paddingLeft="10dp"
+            android:text="@string/max_zoom"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/max_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text="18" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|left"
+            android:paddingLeft="10dp"
+            android:text="@string/cache_settings"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radio_cache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radio_cache_on"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:checked="true"
+                android:text="@string/on" />
+
+            <RadioButton
+                android:id="@+id/radio_cache_off"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/off" />
+        </RadioGroup>
+
+    </LinearLayout>
+</ScrollView>

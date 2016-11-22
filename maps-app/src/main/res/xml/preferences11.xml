@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="Automatic"
+        android:dialogTitle="@string/lang"
+        android:entries="@array/lang_entries"
+        android:entryValues="@array/lang_values"
+        android:key="pref_lang_key"
+        android:summary="@string/lang_summary"
+        android:title="@string/lang" />
+    <ListPreference
+        android:defaultValue="Externa"
+        android:dialogTitle="@string/storage"
+        android:entries="@array/storage_entries"
+        android:entryValues="@array/storage_values"
+        android:key="pref_storage_key"
+        android:summary="@string/storage_summary"
+        android:title="@string/storage" />
+    <ListPreference
+        android:defaultValue="Metric"
+        android:dialogTitle="@string/measurement"
+        android:entries="@array/measurement_entries"
+        android:entryValues="@array/measurement_values"
+        android:key="pref_unit_key"
+        android:summary="@string/units_summary"
+        android:title="@string/measurement" />
+    <CheckBoxPreference
+        android:checked="false"
+        android:key="pref_buildings_3d"
+        android:title="@string/buildings_3d" />
+
+
+</PreferenceScreen>

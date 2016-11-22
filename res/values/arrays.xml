@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="measurement_entries">
+        <item>@string/metric</item>
+        <item>@string/imperial</item>
+    </string-array>
+    <string-array name="measurement_values">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
+    <string-array name="storage_entries">
+        <item>@string/internal</item>
+        <item>@string/external</item>
+    </string-array>
+    <string-array name="storage_values">
+        <item>Internal</item>
+        <item>External</item>
+    </string-array>
+    <string-array name="lang_entries">
+        <item>@string/lang_automatic</item>
+        <item>@string/lang_local</item>
+        <item>@string/lang_en</item>
+        <item>@string/lang_de</item>
+        <item>@string/lang_fr</item>
+        <item>@string/lang_ru</item>
+        <item>@string/lang_cn</item>
+        <item>@string/lang_es</item>
+        <item>@string/lang_it</item>
+        <item>@string/lang_et</item>
+    </string-array>
+    <string-array name="lang_values">
+        <item>Automatic</item>
+        <item>Local</item>
+        <item>English</item>
+        <item>German</item>
+        <item>French</item>
+        <item>Russian</item>
+        <item>Chinese</item>
+        <item>Spanish</item>
+        <item>Italian</item>
+        <item>Estonian</item>
+    </string-array>
+
+</resources>

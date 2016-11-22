@@ -1,0 +1,123 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- The main content view -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.nutiteq.ui.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="mapview" />
+
+        <View
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <com.nutiteq.nuticomponents.customviews.search.HamburgerView
+            android:id="@+id/hamburger_view"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="hamburger"
+            android:padding="0dp" />
+
+        <com.nutiteq.nuticomponents.customviews.search.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/hamburger_view"
+            android:contentDescription="search"
+            android:imeOptions="actionSearch"
+            android:padding="0dp" />
+
+        <com.nutiteq.nuticomponents.customviews.search.VoiceView
+            android:id="@+id/voice_view"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/search_view"
+            android:contentDescription="voice"
+            android:padding="0dp" />
+
+        <com.nutiteq.nuticomponents.customviews.CompassView
+            android:id="@+id/compass_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="15dp" />
+
+        <Button
+            android:id="@+id/suggestion_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/search_view"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/bookmark_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            android:textSize="17sp"
+            android:visibility="gone" />
+
+        <com.nutiteq.nuticomponents.customviews.ScaleBarView
+            android:id="@+id/scale_bar_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp" />
+
+        <com.nutiteq.nuticomponents.customviews.LocationView
+            android:id="@+id/gps_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:contentDescription="gps button"
+            android:padding="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="© OpenStreetMap" />
+    </RelativeLayout>
+
+    <!-- The navigation drawer -->
+
+    <com.nutiteq.nuticomponents.customviews.AnimatedExpandableListView
+        android:id="@+id/hamburger_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:groupIndicator="@null"
+        android:listSelector="@xml/selector" />
+
+</android.support.v4.widget.DrawerLayout>
