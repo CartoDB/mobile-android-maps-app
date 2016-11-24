@@ -92,6 +92,5 @@ android.applicationVariants.all { variant ->
 dependencies {
     compile project(':nuticomponents')
     compile 'com.carto:carto-mobile-sdk:snapshot@aar'
-    compile 'net.hockeyapp.android:HockeySDK:3.7.0'
     compile 'com.firebase:firebase-client-android:2.5.0+'
 }

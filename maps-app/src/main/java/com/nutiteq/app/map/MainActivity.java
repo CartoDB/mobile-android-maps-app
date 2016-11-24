@@ -118,9 +118,6 @@ import com.nutiteq.nuticomponents.locationtracking.TrackData;
 import com.nutiteq.nuticomponents.packagemanager.PackageDownloadListActivity;
 import com.nutiteq.nuticomponents.packagemanager.PackageManagerApplicationInterface;
 
-import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.CrashManagerListener;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -1501,38 +1498,6 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         }
     }
 
-    // check does app crash last time and if it HOCKEY SDK give users option to
-    // report this crash
-    private void checkForCrashes() {
-        CrashManager.register(this, Const.HOCKEYAPP_ID, new CrashManagerListener() {
-                    public String getDescription() {
-                        String description = "Crash in app";
-                        /*
-                         * // Try to read logs from logcat - not useful really
-						 * try { Process process = Runtime.getRuntime().exec(
-						 * "logcat -d HockeyApp:D *:S"); BufferedReader
-						 * bufferedReader = new BufferedReader( new
-						 * InputStreamReader(process .getInputStream()));
-						 *
-						 * StringBuilder log = new StringBuilder(); String line;
-						 * while ((line = bufferedReader.readLine()) != null) {
-						 * log.append(line);
-						 * log.append(System.getProperty("line.separator")); }
-						 * bufferedReader.close();
-						 *
-						 * description = log.toString(); } catch (IOException e)
-						 * { }
-						 */
-                        return description;
-                    }
-
-                    public boolean shouldAutoUploadCrashes() {
-                        return true;
-                    }
-                }
-        );
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -1675,8 +1640,6 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         }
 
         isFromMainActivity = true;
-
-        checkForCrashes();
     }
 
     @Override

@@ -90,10 +90,6 @@ public class Const {
 	public static final String MAP_LANGUAGE_ESTONIAN = "et";
 	public static final String MAP_LANGUAGE_LOCAL = "";
 
-	// ID for HOCKEY SDK
-	public static final String HOCKEYAPP_ID = BuildConfig.DEBUG ? "2a90c57f65f6f8821e857247416f5475"
-			: "94d69b5ee0f22c85af784ba041109921";
-
 	// value in MB which indicate unreachable storage, for example if 1030 MB is
 	// free only 1000 is reachable, I use this because on my device when there
 	// is below 30MB free external storage, package manager crash if it's

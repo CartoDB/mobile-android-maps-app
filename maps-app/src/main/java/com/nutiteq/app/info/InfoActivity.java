@@ -19,8 +19,6 @@ import com.nutiteq.app.utils.Const;
 import com.nutiteq.app.nutimap3d.dev.R;
 import com.carto.ui.BaseMapView;
 
-import net.hockeyapp.android.FeedbackManager;
-
 public class InfoActivity extends Activity {
 
     @SuppressLint("NewApi")
@@ -55,13 +53,6 @@ public class InfoActivity extends Activity {
 //                + " " + Build.MODEL + " " + Build.ID);
 
         Button b = (Button) findViewById(R.id.feedback);
-        b.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                showFeedbackActivity();
-            }
-        });
 
         // didn't find solution from xml
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -75,12 +66,6 @@ public class InfoActivity extends Activity {
 
             getActionBar().setTitle(Html.fromHtml("<b>&nbsp&nbsp&nbsp&nbsp " + getString(R.string.menu_info) + "</b>"));
         }
-    }
-
-    // show feedback activity with HOCKEY SDK
-    public void showFeedbackActivity() {
-        FeedbackManager.register(this, Const.HOCKEYAPP_ID, null);
-        FeedbackManager.showFeedbackActivity(this);
     }
 
     @Override
