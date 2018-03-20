@@ -64,17 +64,12 @@ public class Const {
 	public static final String LOG_TAG = "OfflineMaps3D";
 
 	// offline vector map data source from assets
-	public static final String BASE_PACKAGE_ASSET_NAME = "world_0_5.mbtiles";
+	public static final String BASE_PACKAGE_ASSET_NAME = "world-carto.streets-z0-4.mbtiles";
 	public static final String BASE_PACKAGE_ID = "basepkg";
 
 	// Tile cache size. Larger number will give better performance but higher
 	// memory usage
 	public static final int TILE_CACHE_SIZE = 32 * 1024 * 1024;
-
-	// names of map styles
-	public static final String MAP_STYLE_BRIGHT = "style";
-	public static final String MAP_STYLE_GREY = "nutiteq_dark";
-	public static final String MAP_STYLE_FILE = "nutibright-v3.zip";
 
 	public static final String FIREBASE_URL = "https://vivid-heat-3178.firebaseio.com/";
 

@@ -56,6 +56,9 @@ import com.carto.core.Variant;
 import com.carto.datasources.LocalVectorDataSource;
 import com.carto.datasources.PackageManagerTileDataSource;
 import com.carto.graphics.Color;
+import com.carto.layers.CartoBaseMapStyle;
+import com.carto.layers.CartoOfflineVectorTileLayer;
+import com.carto.layers.CartoOnlineVectorTileLayer;
 import com.carto.layers.TileSubstitutionPolicy;
 import com.carto.layers.VectorLayer;
 import com.carto.layers.VectorTileLayer;
@@ -119,6 +122,7 @@ import com.nutiteq.nuticomponents.locationtracking.LocationTrackingDB;
 import com.nutiteq.nuticomponents.locationtracking.TrackData;
 import com.nutiteq.nuticomponents.packagemanager.PackageDownloadListActivity;
 import com.nutiteq.nuticomponents.packagemanager.PackageManagerApplicationInterface;
+import com.nutiteq.nuticomponents.packagemanager.PackageManagerComponent;
 
 import java.io.File;
 import java.io.IOException;
@@ -958,108 +962,105 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
     }
 
     public void updateBaseLayer() {
-        String styleAssetName;
 
-        if (isNotDarkStyle) {
-            styleAssetName = Const.MAP_STYLE_GREY;
-        } else {
-            styleAssetName = Const.MAP_STYLE_BRIGHT;
+        if (nycVectorLayer != null) {
+            mapView.getLayers().remove(nycVectorLayer);
         }
 
-        BinaryData binaryData = AssetUtils.loadAsset(Const.MAP_STYLE_FILE);
+        if (gpsTrackingVectorLayer != null) {
+            mapView.getLayers().remove(gpsTrackingVectorLayer);
+        }
 
-        if (binaryData != null) {
-            // Create style set
-            CompiledStyleSet compiledStyleSet = new CompiledStyleSet(new ZippedAssetPackage(binaryData), styleAssetName);
-            vectorTileDecoder = new MBVectorTileDecoder(compiledStyleSet);
+        if (searchVectorLayer != null) {
+            mapView.getLayers().remove(searchVectorLayer);
+        }
 
-            // get device default language
-            String defaultLang = Locale.getDefault().getLanguage();
-            String lang = vectorStyleLang;
+        if (bookmarkVectorLayer != null) {
+            mapView.getLayers().remove(bookmarkVectorLayer);
+        }
 
-            if (lang.equals(Const.MAP_LANGUAGE_AUTOMATIC)) {
-                // if it's supported by SDK use it, otherwise use English as
-                // default
-                if (isSupportedBySDK(defaultLang)) {
-                    lang = defaultLang;
-                } else {
-                    lang = Const.MAP_LANGUAGE_LOCAL;
-                }
-            }
+        if (routeVectorLayer != null) {
+            mapView.getLayers().remove(routeVectorLayer);
+        }
 
-            // Set language, language-specific texts from vector tiles will
-            // be used
-            vectorTileDecoder.setStyleParameter("lang", lang);
+        if (locationAnimationLayer != null) {
+            mapView.getLayers().remove(locationAnimationLayer);
+        }
 
-            vectorTileDecoder.setStyleParameter("buildings3d", buildings3D + "");
-            vectorTileDecoder.setStyleParameter("texts3d", "1");
-            vectorTileDecoder.setStyleParameter("markers3d", "1");
+        if (baseLayer != null) {
+            mapView.getLayers().remove(baseLayer);
+        }
 
-            // Create tile data source for vector tiles
-            PackageManagerTileDataSource vectorTileDataSource = new PackageManagerTileDataSource(
-                    ((MapApplication) getApplication()).getPackageManagerComponent().getPackageManager());
+        // Initialize an online vector tile layer
+        // just so we could get the tile decoder from it
+        CartoOnlineVectorTileLayer decoderLayer;
 
-            if (nycVectorLayer != null) {
-                mapView.getLayers().remove(nycVectorLayer);
-            }
+        CartoBaseMapStyle style;
 
-            if (gpsTrackingVectorLayer != null) {
-                mapView.getLayers().remove(gpsTrackingVectorLayer);
-            }
-
-            if (searchVectorLayer != null) {
-                mapView.getLayers().remove(searchVectorLayer);
-            }
-
-            if (bookmarkVectorLayer != null) {
-                mapView.getLayers().remove(bookmarkVectorLayer);
-            }
-
-            if (routeVectorLayer != null) {
-                mapView.getLayers().remove(routeVectorLayer);
-            }
-
-            if (locationAnimationLayer != null) {
-                mapView.getLayers().remove(locationAnimationLayer);
-            }
-
-            if (baseLayer != null) {
-                mapView.getLayers().remove(baseLayer);
-            }
-
-            baseLayer = new VectorTileLayer(vectorTileDataSource, vectorTileDecoder);
-            baseLayer.setTileCacheCapacity(Const.TILE_CACHE_SIZE);
-            baseLayer.setTileSubstitutionPolicy(TileSubstitutionPolicy.TILE_SUBSTITUTION_POLICY_VISIBLE);
-
-            // show base map labels on top of other layers
-            baseLayer.setLabelRenderOrder(VectorTileRenderOrder.VECTOR_TILE_RENDER_ORDER_LAST);
-            mapView.getLayers().add(baseLayer);
-
-            if (locationAnimationLayer != null) {
-                mapView.getLayers().add(locationAnimationLayer);
-            }
-
-            if (nycVectorLayer != null) {
-                mapView.getLayers().add(nycVectorLayer);
-            }
-
-            if (gpsTrackingVectorLayer != null) {
-                mapView.getLayers().add(gpsTrackingVectorLayer);
-            }
-
-            if (searchVectorLayer != null) {
-                mapView.getLayers().add(searchVectorLayer);
-            }
-
-            if (bookmarkVectorLayer != null) {
-                mapView.getLayers().add(bookmarkVectorLayer);
-            }
-
-            if (routeVectorLayer != null) {
-                mapView.getLayers().add(routeVectorLayer);
-            }
+        if (isNotDarkStyle) {
+            style = CartoBaseMapStyle.CARTO_BASEMAP_STYLE_POSITRON;
         } else {
-            Log.e(Const.LOG_TAG, "map style file must be in project assets");
+            style = CartoBaseMapStyle.CARTO_BASEMAP_STYLE_VOYAGER;
+        }
+
+        MapApplication application = ((MapApplication) getApplication());
+        PackageManagerComponent component = application.getPackageManagerComponent();
+        CartoPackageManager manager = component.getPackageManager();
+        baseLayer = new CartoOfflineVectorTileLayer(manager, style);
+
+        vectorTileDecoder = (MBVectorTileDecoder) baseLayer.getTileDecoder();
+
+        // get device default language
+        String defaultLang = Locale.getDefault().getLanguage();
+        String lang = vectorStyleLang;
+
+        if (lang.equals(Const.MAP_LANGUAGE_AUTOMATIC)) {
+            // if it's supported by SDK use it, otherwise use English as
+            // default
+            if (isSupportedBySDK(defaultLang)) {
+                lang = defaultLang;
+            } else {
+                lang = Const.MAP_LANGUAGE_LOCAL;
+            }
+        }
+
+        // Set language, language-specific texts from vector tiles will
+        // be used
+        vectorTileDecoder.setStyleParameter("lang", lang);
+
+        vectorTileDecoder.setStyleParameter("buildings3d", buildings3D + "");
+        vectorTileDecoder.setStyleParameter("texts3d", "1");
+        vectorTileDecoder.setStyleParameter("markers3d", "1");
+
+        baseLayer.setTileCacheCapacity(Const.TILE_CACHE_SIZE);
+        baseLayer.setTileSubstitutionPolicy(TileSubstitutionPolicy.TILE_SUBSTITUTION_POLICY_VISIBLE);
+
+        // show base map labels on top of other layers
+        baseLayer.setLabelRenderOrder(VectorTileRenderOrder.VECTOR_TILE_RENDER_ORDER_LAST);
+        mapView.getLayers().add(baseLayer);
+
+        if (locationAnimationLayer != null) {
+            mapView.getLayers().add(locationAnimationLayer);
+        }
+
+        if (nycVectorLayer != null) {
+            mapView.getLayers().add(nycVectorLayer);
+        }
+
+        if (gpsTrackingVectorLayer != null) {
+            mapView.getLayers().add(gpsTrackingVectorLayer);
+        }
+
+        if (searchVectorLayer != null) {
+            mapView.getLayers().add(searchVectorLayer);
+        }
+
+        if (bookmarkVectorLayer != null) {
+            mapView.getLayers().add(bookmarkVectorLayer);
+        }
+
+        if (routeVectorLayer != null) {
+            mapView.getLayers().add(routeVectorLayer);
         }
     }
 

@@ -5,7 +5,7 @@ public class Const {
     public static final String LOG_TAG = "Nuticomponents";
 
     public static final String BASE_PACKAGE_ID = "basepkg";
-    public static final String BASE_PACKAGE_ASSET_NAME = "world_0_5.mbtiles";
+    public static final String BASE_PACKAGE_ASSET_NAME = "world-carto.streets-z0-4.mbtiles";
 
     public static final String NUTITEQ_SOURCE_ID = "carto.streets";
 
@@ -26,6 +26,6 @@ public class Const {
     public static final int EXTERNAL_STORAGE_MIN = 30;
     public static final int INTERNAL_STORAGE_MIN = 30;
 
-    public static final float BASE_PACKAGE_ZOOM_LEVELS = 6;
+    public static final float BASE_PACKAGE_ZOOM_LEVELS = 5;
     public static final int TILEMASK_ZOOM_LEVELS = 12;
 }
