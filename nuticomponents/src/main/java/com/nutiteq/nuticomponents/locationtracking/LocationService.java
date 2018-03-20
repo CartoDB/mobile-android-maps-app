@@ -1,15 +1,21 @@
 package com.nutiteq.nuticomponents.locationtracking;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.nutiteq.nuticomponents.R;
@@ -94,8 +100,7 @@ public class LocationService extends Service {
                 }
             }
 
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras) {
+            public void onStatusChanged(String provider, int status, Bundle extras) {
             }
 
             public void onProviderEnabled(String provider) {
@@ -108,8 +113,10 @@ public class LocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // case NPE TODO
-        //locationTrackingDB.removeLastGPSTrack();
+
+        int finePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarsePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        int granted = PackageManager.PERMISSION_GRANTED;
 
         if (intent != null) {
             if (intent.getBooleanExtra(START_TRACKING_FLAG, false)) {
@@ -123,21 +130,39 @@ public class LocationService extends Service {
                 } else {
                     isLocationTrackingOn = true;
 
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                            1000, 0, locationListener);
+                    if (finePermission == granted && coarsePermission == granted) {
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                                1000, 0, locationListener);
+                    } else {
+                        Toast.makeText(this, "Network permission not granted", Toast.LENGTH_SHORT).show();
+                    }
 
-                    registerReceiver(batteryInfoReceiver, new IntentFilter(
-                            Intent.ACTION_BATTERY_CHANGED));
+                    if (finePermission == granted && coarsePermission == granted) {
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                                1000, 0, locationListener);
+                    } else {
+                        Toast.makeText(this, "GPS permission not granted", Toast.LENGTH_SHORT).show();
+                    }
+
+                    registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
                 }
             } else if (intent.getBooleanExtra(START_LOCATION_FLAG, false)) {
                 isLocationListenerOn = true;
 
-                locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                        1000, 0, locationListener);
+                if (finePermission == granted && coarsePermission == granted) {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                            1000, 0, locationListener);
+                } else {
+                    Toast.makeText(this, "Network permission not granted", Toast.LENGTH_SHORT).show();
+                }
+
+                if (finePermission == granted && coarsePermission == granted) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                            1000, 0, locationListener);
+                } else {
+                    Toast.makeText(this, "GPS permission not granted", Toast.LENGTH_SHORT).show();
+                }
+
             } else if (intent.getBooleanExtra(STOP_LOCATION_FLAG, false)) {
                 if (!isLocationTrackingOn) {
                     locationManager.removeUpdates(locationListener);
