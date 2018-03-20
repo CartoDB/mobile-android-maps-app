@@ -1,5 +1,6 @@
 package com.nutiteq.app.map;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -23,6 +24,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
@@ -881,6 +883,9 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         });
 
         init();
+
+        String[] permissions = new String[] { Manifest.permission.ACCESS_FINE_LOCATION };
+        ActivityCompat.requestPermissions(this, permissions, 10);
     }
 
     private void hideKeyboard() {
