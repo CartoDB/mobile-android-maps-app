@@ -1086,22 +1086,6 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
 
         routeView = (RouteView) findViewById(R.id.route_view);
 
-        // Create and set a map event listener, it needs the data source for
-        // balloons and compass to listen map rotation
-        myMapEventListener = new MyMapEventListener(
-                mapView, compassView, scaleBarView, packageSuggestion, searchVectorDataSource,
-                bookmarkDataSource, routeDataSource, bottomView, findViewById(R.id.empty_view),
-                locationView, routeView, ((PackageManagerApplicationInterface) getApplication())
-                .getPackageManagerComponent().getRoutingPackageManager());
-
-        mapView.setMapEventListener(myMapEventListener);
-
-        myVectorElementEventListener = new MyVectorElementEventListener(
-                mapView, myMapEventListener, myMapEventListener.getLongClickPin(), bottomView,
-                findViewById(R.id.empty_view), locationView, routeView);
-
-        routeView.setMapView(mapView, myMapEventListener);
-
         lineStyleBuilder = new LineStyleBuilder();
         lineStyleBuilder.setColor(new Color(0xFF00b483));// nutiteq
 
@@ -1152,6 +1136,22 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         searchMarker = new Marker(new MapPos(0, 0), searchMarkerStyle);
         searchMarker.setVisible(false);
         searchVectorDataSource.add(searchMarker);
+
+        // Create and set a map event listener, it needs the data source for
+        // balloons and compass to listen map rotation
+        myMapEventListener = new MyMapEventListener(
+                mapView, compassView, scaleBarView, packageSuggestion, searchVectorDataSource,
+                bookmarkDataSource, routeDataSource, bottomView, findViewById(R.id.empty_view),
+                locationView, routeView, ((PackageManagerApplicationInterface) getApplication())
+                .getPackageManagerComponent().getRoutingPackageManager());
+
+        mapView.setMapEventListener(myMapEventListener);
+
+        myVectorElementEventListener = new MyVectorElementEventListener(
+                mapView, myMapEventListener, myMapEventListener.getLongClickPin(), bottomView,
+                findViewById(R.id.empty_view), locationView, routeView);
+
+        routeView.setMapView(mapView, myMapEventListener);
 
         bottomView.setOnDroppedPinViewClickListener(new BottomView.OnDroppedPinViewClickListener() {
 

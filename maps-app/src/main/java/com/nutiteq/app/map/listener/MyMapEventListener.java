@@ -23,12 +23,14 @@ import com.carto.layers.VectorLayer;
 import com.carto.packagemanager.PackageManager;
 import com.carto.projections.Projection;
 import com.carto.routing.PackageManagerRoutingService;
+import com.carto.routing.PackageManagerValhallaRoutingService;
 import com.carto.routing.RoutingAction;
 import com.carto.routing.RoutingInstruction;
 import com.carto.routing.RoutingInstructionVector;
 import com.carto.routing.RoutingRequest;
 import com.carto.routing.RoutingResult;
 import com.carto.routing.RoutingService;
+import com.carto.routing.ValhallaOfflineRoutingService;
 import com.carto.styles.BalloonPopupMargins;
 import com.carto.styles.BalloonPopupStyleBuilder;
 import com.carto.styles.BillboardOrientation;
@@ -250,7 +252,7 @@ public class MyMapEventListener extends MapEventListener {
 
         refreshFavoriteLocationsOnMap();
 
-        offlineRoutingService = new PackageManagerRoutingService(packageRoutingManager);
+        offlineRoutingService = new PackageManagerValhallaRoutingService(packageRoutingManager);
 
         // define layer and datasource for route start and stop markers
         routeDirectionDataSource = new LocalVectorDataSource(projection);
@@ -729,7 +731,7 @@ public class MyMapEventListener extends MapEventListener {
     private MapPos startPos = null;
     private MapPos stopPos = null;
 
-    private RoutingService offlineRoutingService;
+    private PackageManagerValhallaRoutingService offlineRoutingService;
 
     private boolean shortestPathRunning;
 
@@ -877,7 +879,7 @@ public class MyMapEventListener extends MapEventListener {
                     return;
                 }
 
-                if(routeLine!=null) {
+                if (routeLine != null) {
                     routeDataSource.remove(routeLine);
                 }
                 routeDirectionDataSource.removeAll(routeDirections);
