@@ -910,7 +910,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
 
             myMapEventListener.setLocation(mapPos);
 
-            lastGPSlocation = projection.fromWgs84(new MapPos(latitude, longitude));
+            lastGPSlocation = projection.fromWgs84(new MapPos(longitude, latitude));
 
             if (locationView.getState() == LocationView.LOCATION_STATE_ON && !isMyPlaceShown) {
                 isMyPlaceShown = true;
