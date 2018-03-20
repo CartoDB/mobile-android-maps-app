@@ -1,24 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+
+    compileSdkVersion 26
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 21
+        applicationId "com.carto.maps.app.droid"
+        minSdkVersion 18
+        targetSdkVersion 26
         versionCode 64
-    }
-
-    productFlavors {
-        development {
-            applicationId "com.carto.maps.app.droid"
-            versionCode System.getenv("BUILD_NUMBER") as Integer ?: 666
-        }
-        publicRelease {
-            applicationId "com.carto.maps.app.droid"
-            versionCode 64 // live
-        }
     }
 
     buildTypes {
@@ -27,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
         }
     }
+
     splits {
         abi {
             enable true
@@ -35,19 +26,6 @@ android {
             universalApk false
         }
     }
-
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-
-        if (names.contains("publicRelease") && variant.buildType.name == "debug") {
-            variant.ignore = true
-        }
-        if (names.contains("development") && variant.buildType.name == "release") {
-            variant.ignore = true
-        }
-
-    }
-
 
     lintOptions {
         checkReleaseBuilds false
@@ -62,18 +40,6 @@ android {
         exclude 'META-INF/NOTICE'
     }
 
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url "http://repository-nutiteq.forge.cloudbees.com/release/"
-        }
-        maven {
-            url "http://repository-nutiteq.forge.cloudbees.com/snapshot/"
-        }
-    }
 }
 
 // map for the version code
@@ -91,6 +57,6 @@ android.applicationVariants.all { variant ->
 
 dependencies {
     compile project(':nuticomponents')
-    compile 'com.carto:carto-mobile-sdk:snapshot@aar'
+    compile 'com.carto:carto-mobile-sdk:4.1.2@aar'
     compile 'com.firebase:firebase-client-android:2.5.0+'
 }

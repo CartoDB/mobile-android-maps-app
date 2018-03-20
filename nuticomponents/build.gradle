@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 21
+        minSdkVersion 18
+        targetSdkVersion 26
     }
 
     buildTypes {
@@ -17,19 +16,8 @@ android {
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url "http://repository-nutiteq.forge.cloudbees.com/release/"
-        }
-        maven {
-            url "http://repository-nutiteq.forge.cloudbees.com/snapshot/"
-        }
-    }
-}
 dependencies {
     compile 'com.android.support:support-v4:23.0.1'
     compile files('libs/FlurryAnalytics-5.4.0.jar')
-    compile 'com.carto:carto-mobile-sdk:snapshot@aar'
+    compile 'com.carto:carto-mobile-sdk:4.1.2@aar'
 }

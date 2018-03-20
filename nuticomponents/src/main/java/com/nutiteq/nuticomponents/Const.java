@@ -7,9 +7,9 @@ public class Const {
     public static final String BASE_PACKAGE_ID = "basepkg";
     public static final String BASE_PACKAGE_ASSET_NAME = "world_0_5.mbtiles";
 
-    public static final String NUTITEQ_SOURCE_ID = "nutiteq.osm";
+    public static final String NUTITEQ_SOURCE_ID = "carto.streets";
 
-    public static final String NUTITEQ_ROUTING_SOURCE_ID = "routing:nutiteq.osm.car";
+    public static final String NUTITEQ_ROUTING_SOURCE_ID = "routing:" + NUTITEQ_SOURCE_ID;
 
     public static final String NUTITEQ_GREEN = "#00b483";
 
