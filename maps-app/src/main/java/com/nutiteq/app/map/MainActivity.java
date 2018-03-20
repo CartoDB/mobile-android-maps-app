@@ -905,7 +905,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
             double longitude = location.getLongitude();
             float accuracy = location.getAccuracy();
 
-            MapPos mapPos = new MapPos(latitude, longitude);
+            MapPos mapPos = new MapPos(longitude, latitude);
             mapPos = projection.fromWgs84(mapPos);
 
             myMapEventListener.setLocation(mapPos);

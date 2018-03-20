@@ -1,5 +1,6 @@
 package com.nutiteq.app.map.listener;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -839,6 +840,7 @@ public class MyMapEventListener extends MapEventListener {
     private void showRoute(final MapPos startPos, final MapPos stopPos) {
         Log.d(Const.LOG_TAG, "calculating path " + startPos + " to " + stopPos);
 
+        @SuppressLint("StaticFieldLeak")
         AsyncTask<Void, Void, RoutingResult> task = new AsyncTask<Void, Void, RoutingResult>() {
 
             public long timeStart;
@@ -854,6 +856,9 @@ public class MyMapEventListener extends MapEventListener {
                 try {
                     result = offlineRoutingService.calculateRoute(request);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                    result = null;
+                } catch (RuntimeException e) {
                     e.printStackTrace();
                     result = null;
                 }
