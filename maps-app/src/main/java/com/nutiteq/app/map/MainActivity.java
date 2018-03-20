@@ -995,6 +995,22 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
             style = CartoBaseMapStyle.CARTO_BASEMAP_STYLE_VOYAGER;
         }
 
+        for (int i = 0; i < packageManager.getLocalPackages().size(); i++) {
+            PackageInfo info = packageManager.getLocalPackages().get(i);
+            String id = info.getPackageId();
+            String name = info.getName();
+
+            System.out.println("Id: " + id + " ; Name: " + name);
+        }
+
+        for (int i = 0; i < packageManagerRouting.getLocalPackages().size(); i++) {
+            PackageInfo info = packageManagerRouting.getLocalPackages().get(i);
+            String id = info.getPackageId();
+            String name = info.getName();
+
+            System.out.println("Id: " + id + " ; Name: " + name);
+        }
+
         baseLayer = new CartoOfflineVectorTileLayer(packageManager, style);
         vectorTileDecoder = (MBVectorTileDecoder) baseLayer.getTileDecoder();
 

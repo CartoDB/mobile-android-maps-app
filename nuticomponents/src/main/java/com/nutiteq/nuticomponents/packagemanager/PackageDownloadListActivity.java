@@ -493,8 +493,8 @@ public class PackageDownloadListActivity extends ListActivity {
                             if (pkg.hasRoutingUpdate) {
                                 if (pkg.packageRoutingInfo != null) {
                                     packageManagerRouting.startPackageRemove(pkg.packageInfo
-                                            .getPackageId() + "-routing");
-                                    packageManagerRouting.startPackageDownload(pkg.packageId + "-routing");
+                                            .getPackageId() + "");
+                                    packageManagerRouting.startPackageDownload(pkg.packageId + "");
 
                                     routingPkg = true;
                                 }
@@ -529,7 +529,7 @@ public class PackageDownloadListActivity extends ListActivity {
                             packageManager.startPackageRemove(pkg.packageInfo
                                     .getPackageId());
                             if (pkg.packageRoutingInfo != null) {
-                                packageManagerRouting.startPackageRemove(pkg.packageId + "-routing");
+                                packageManagerRouting.startPackageRemove(pkg.packageId + "");
                             }
 
                             if (level == -1) {
@@ -555,7 +555,7 @@ public class PackageDownloadListActivity extends ListActivity {
                             // service
                             packageManager.startPackageRemove(pkg.packageInfo.getPackageId());
                             if (pkg.packageRoutingInfo != null) {
-                                packageManagerRouting.startPackageRemove(pkg.packageId + "-routing");
+                                packageManagerRouting.startPackageRemove(pkg.packageId + "");
                             }
 
                             if (level == -1) {
@@ -610,7 +610,7 @@ public class PackageDownloadListActivity extends ListActivity {
         packageManager.startPackageDownload(pkg.packageId);
 
         if (pkg.packageRoutingInfo != null) {
-            packageManagerRouting.startPackageDownload(pkg.packageId + "-routing");
+            packageManagerRouting.startPackageDownload(pkg.packageId + "");
             routingPkg = true;
         }
 
@@ -709,7 +709,7 @@ public class PackageDownloadListActivity extends ListActivity {
 
             for (Package pkg : packageArray) {
                 if (pkg != null && pkg.packageId != null
-                        && (pkg.packageId + "-routing").equals(id) && pkg.packageRoutingInfo != null) {
+                        && (pkg.packageId + "").equals(id) && pkg.packageRoutingInfo != null) {
                     displayToast(getString(R.string.package_routing_failed_download)
                             + " " + getName(pkg.packageRoutingInfo.getName()));
                     break;
@@ -1146,7 +1146,7 @@ public class PackageDownloadListActivity extends ListActivity {
         for (int i = 0; i < packageInfoVectorServer.size(); i++) {
             PackageInfo packageInfoServer = packageInfoVectorServer.get(i);
 
-            String routingId = packageInfoServer.getPackageId() + "-routing";
+            String routingId = packageInfoServer.getPackageId() + "";
             PackageInfo packageRoutingInfoServer = packageManagerRouting.getServerPackage(routingId);
 
             if (packageInfoServer.getPackageId().equals(Const.BASE_PACKAGE_ID)) {
@@ -1459,7 +1459,7 @@ public class PackageDownloadListActivity extends ListActivity {
                             PackageStatus packageStatus = packageManager
                                     .getLocalPackageStatus(packageId, -1);
                             PackageStatus packageStatusRouting = packageManagerRouting
-                                    .getLocalPackageStatus(packageId + "-routing", -1);
+                                    .getLocalPackageStatus(packageId + "", -1);
                             pkg.packageStatus = packageStatus;
                             pkg.packageRoutingStatus = packageStatusRouting;
                             packageAdapter.getView(position, getListView()

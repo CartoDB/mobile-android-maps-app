@@ -280,7 +280,7 @@ public class PackageSuggestion {
                     }
                 }
 
-                PackageInfo packageRoutingInfoServer = packageManagerRouting.getServerPackage(pkg.getPackageId() + "-routing");
+                PackageInfo packageRoutingInfoServer = packageManagerRouting.getServerPackage(pkg.getPackageId() + "");
 
                 // there is no routing pkg for map pkg always!
                 if (packageRoutingInfoServer != null) {
@@ -301,8 +301,8 @@ public class PackageSuggestion {
                     suggestionButton.setEnabled(true);
 
                     long routingPkgSize = 0;
-                    if (packageManagerRouting.getServerPackage(pkg.getPackageId() + "-routing") != null) {
-                        routingPkgSize = packageManagerRouting.getServerPackage(pkg.getPackageId() + "-routing").getSize().longValue();
+                    if (packageManagerRouting.getServerPackage(pkg.getPackageId() + "") != null) {
+                        routingPkgSize = packageManagerRouting.getServerPackage(pkg.getPackageId() + "").getSize().longValue();
                     }
 
                     String size = " (";
@@ -342,9 +342,9 @@ public class PackageSuggestion {
                             }
 
                             if (hasRoutingUpdate) {
-                                packageManagerRouting.startPackageRemove(pkg.getPackageId() + "-routing");
+                                packageManagerRouting.startPackageRemove(pkg.getPackageId() + "");
 
-                                packageManagerRouting.startPackageDownload(pkg.getPackageId() + "-routing");
+                                packageManagerRouting.startPackageDownload(pkg.getPackageId() + "");
                             }
 
                             Intent intent = new Intent(mapView.getContext(), PackageDownloadService.class);
@@ -389,8 +389,8 @@ public class PackageSuggestion {
                         suggestionButton.setEnabled(true);
 
                         long routingPkgSize = 0;
-                        if (packageManagerRouting.getServerPackage(pkg.getPackageId() + "-routing") != null) {
-                            routingPkgSize = packageManagerRouting.getServerPackage(pkg.getPackageId() + "-routing").getSize().longValue();
+                        if (packageManagerRouting.getServerPackage(pkg.getPackageId() + "") != null) {
+                            routingPkgSize = packageManagerRouting.getServerPackage(pkg.getPackageId() + "").getSize().longValue();
                         }
 
                         String size = " (";
@@ -425,8 +425,8 @@ public class PackageSuggestion {
                                 packageManager.startPackageDownload(pkg.getPackageId());
 
                                 boolean routingPkg = false;
-                                if (packageManagerRouting.getServerPackage(pkg.getPackageId() + "-routing") != null) {
-                                    packageManagerRouting.startPackageDownload(pkg.getPackageId() + "-routing");
+                                if (packageManagerRouting.getServerPackage(pkg.getPackageId() + "") != null) {
+                                    packageManagerRouting.startPackageDownload(pkg.getPackageId() + "");
                                     routingPkg = true;
                                 }
 

@@ -144,7 +144,7 @@ public class PackageDownloadService extends Service {
                                 .getString("package_id"), -1);
                         if (jobs.get(i).isRoutingPkg) {
                             packageManagerRouting.setPackagePriority(intent.getExtras()
-                                    .getString("package_id") + "-routing", -1);
+                                    .getString("package_id") + "", -1);
                         }
 
                         break;
@@ -161,7 +161,7 @@ public class PackageDownloadService extends Service {
 
                         if (jobs.get(i).isRoutingPkg) {
                             packageManagerRouting.setPackagePriority(intent.getExtras()
-                                    .getString("package_id") + "-routing", 0);
+                                    .getString("package_id") + "", 0);
                         }
 
                         isFind = true;
@@ -198,7 +198,7 @@ public class PackageDownloadService extends Service {
 
                     if (intent.getExtras().getBoolean("routing_pkg")) {
                         packageManagerRouting.setPackagePriority(intent.getExtras()
-                                .getString("package_id") + "-routing", 0);
+                                .getString("package_id") + "", 0);
                     }
                 }
             }
@@ -351,12 +351,12 @@ public class PackageDownloadService extends Service {
                 continue; // ignore base package
             }
 
-            PackageInfo packageRoutingInfo = packageManagerRouting.getServerPackage(packageInfo.getPackageId() + "-routing");
+            PackageInfo packageRoutingInfo = packageManagerRouting.getServerPackage(packageInfo.getPackageId() + "");
             PackageStatus packageRoutingStatus = null;
 
             if (packageRoutingInfo != null) {
                 packageRoutingStatus = packageManagerRouting.getLocalPackageStatus(
-                        packageInfo.getPackageId() + "-routing",
+                        packageInfo.getPackageId() + "",
                         packageRoutingInfo.getVersion());
             }
 
@@ -382,7 +382,7 @@ public class PackageDownloadService extends Service {
 
                 if (pkg.packageRoutingInfo != null) {
                     pkg.packageRoutingStatus = packageManagerRouting.getLocalPackageStatus(
-                            pkg.packageInfo.getPackageId() + "-routing",
+                            pkg.packageInfo.getPackageId() + "",
                             pkg.packageRoutingInfo.getVersion());
                 }
 
@@ -473,7 +473,7 @@ public class PackageDownloadService extends Service {
                                     .cancelPackageTasks(jobs.get(i).packageId);
                             if (jobs.get(i).isRoutingPkg) {
                                 packageManagerRouting
-                                        .cancelPackageTasks(jobs.get(i).packageId + "-routing");
+                                        .cancelPackageTasks(jobs.get(i).packageId + "");
                             }
                             mNotificationManager.cancel(jobs.get(i).id);
                             jobs.remove(i);
@@ -631,7 +631,7 @@ public class PackageDownloadService extends Service {
                     packageManager.cancelPackageTasks(jobs.get(i).packageId);
 
                     if (jobs.get(i).isRoutingPkg) {
-                        packageManagerRouting.cancelPackageTasks(jobs.get(i).packageId + "-routing");
+                        packageManagerRouting.cancelPackageTasks(jobs.get(i).packageId + "");
                     }
 
                     if (PackageDownloadListActivity.isActivityOpen) {
