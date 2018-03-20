@@ -600,8 +600,9 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         }
 
         // Get package managers
-        packageManager = ((MapApplication) getApplication()).getPackageManagerComponent().getPackageManager();
-        packageManagerRouting = ((MapApplication) getApplication()).getPackageManagerComponent().getRoutingPackageManager();
+        MapApplication application = (MapApplication) getApplication();
+        packageManager = application.getPackageManagerComponent().getPackageManager();
+        packageManagerRouting = application.getPackageManagerComponent().getRoutingPackageManager();
 
         if (isFirstStart) {
             SharedPreferences.Editor editor = preferences.edit();
