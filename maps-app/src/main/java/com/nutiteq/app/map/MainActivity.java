@@ -64,6 +64,7 @@ import com.carto.layers.VectorLayer;
 import com.carto.layers.VectorTileLayer;
 import com.carto.layers.VectorTileRenderOrder;
 import com.carto.packagemanager.CartoPackageManager;
+import com.carto.packagemanager.PackageInfo;
 import com.carto.packagemanager.PackageInfoVector;
 import com.carto.projections.EPSG3857;
 import com.carto.styles.LineJoinType;
@@ -991,10 +992,6 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
             mapView.getLayers().remove(baseLayer);
         }
 
-        // Initialize an online vector tile layer
-        // just so we could get the tile decoder from it
-        CartoOnlineVectorTileLayer decoderLayer;
-
         CartoBaseMapStyle style;
 
         if (isNotDarkStyle) {
@@ -1003,11 +1000,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
             style = CartoBaseMapStyle.CARTO_BASEMAP_STYLE_VOYAGER;
         }
 
-        MapApplication application = ((MapApplication) getApplication());
-        PackageManagerComponent component = application.getPackageManagerComponent();
-        CartoPackageManager manager = component.getPackageManager();
-        baseLayer = new CartoOfflineVectorTileLayer(manager, style);
-
+        baseLayer = new CartoOfflineVectorTileLayer(packageManager, style);
         vectorTileDecoder = (MBVectorTileDecoder) baseLayer.getTileDecoder();
 
         // get device default language
@@ -1028,7 +1021,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         // be used
         vectorTileDecoder.setStyleParameter("lang", lang);
 
-        vectorTileDecoder.setStyleParameter("buildings3d", buildings3D + "");
+        vectorTileDecoder.setStyleParameter("buildings", buildings3D + "");
         vectorTileDecoder.setStyleParameter("texts3d", "1");
         vectorTileDecoder.setStyleParameter("markers3d", "1");
 

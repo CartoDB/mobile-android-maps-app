@@ -526,8 +526,7 @@ public class PackageManagerComponent {
         }
 
         @Override
-        public void onPackageStatusChanged(String id, int version,
-                                           PackageStatus status) {
+        public void onPackageStatusChanged(String id, int version, PackageStatus status) {
             for (PackageManagerListener listener : getPackageManagerListeners()) {
                 listener.onPackageStatusChanged(id, version, status);
             }
@@ -548,8 +547,7 @@ public class PackageManagerComponent {
         }
 
         @Override
-        public void onPackageFailed(String id, int version,
-                                    PackageErrorType errorType) {
+        public void onPackageFailed(String id, int version, PackageErrorType errorType) {
             for (PackageManagerListener listener : getPackageManagerListeners()) {
                 listener.onPackageFailed(id, version, errorType);
             }
@@ -573,8 +571,7 @@ public class PackageManagerComponent {
         }
 
         @Override
-        public void onPackageStatusChanged(String id, int version,
-                                           PackageStatus status) {
+        public void onPackageStatusChanged(String id, int version, PackageStatus status) {
             for (PackageManagerListener listener : getPackageManagerRoutingListeners()) {
                 listener.onPackageStatusChanged(id, version, status);
             }
@@ -595,8 +592,7 @@ public class PackageManagerComponent {
         }
 
         @Override
-        public void onPackageFailed(String id, int version,
-                                    PackageErrorType errorType) {
+        public void onPackageFailed(String id, int version, PackageErrorType errorType) {
             for (PackageManagerListener listener : getPackageManagerRoutingListeners()) {
                 listener.onPackageFailed(id, version, errorType);
             }
