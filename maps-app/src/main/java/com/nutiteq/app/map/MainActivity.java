@@ -689,12 +689,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
                                         Const.BASE_PACKAGE_ASSET_NAME)
                                         .getAbsolutePath());
                     }
-                    // TODO: basepkg.mbtiles can be removed once import is
-                    // complete
-                    // (listener)
-                    // nole: from app user interface it can't be removed, it can
-                    // be delete with file manager but than above code will
-                    // again import basepkg or maybe I missed something? :)
+
                 } else {
                     isMapReady = false;
                 }
@@ -1017,8 +1012,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
             }
         }
 
-        // Set language, language-specific texts from vector tiles will
-        // be used
+        // Set language, language-specific texts from vector tiles will be used
         vectorTileDecoder.setStyleParameter("lang", lang);
 
         vectorTileDecoder.setStyleParameter("buildings", buildings3D + "");
@@ -1028,7 +1022,7 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         baseLayer.setTileCacheCapacity(Const.TILE_CACHE_SIZE);
         baseLayer.setTileSubstitutionPolicy(TileSubstitutionPolicy.TILE_SUBSTITUTION_POLICY_VISIBLE);
 
-        // show base map labels on top of other layers
+        // Show base map labels on top of other layers
         baseLayer.setLabelRenderOrder(VectorTileRenderOrder.VECTOR_TILE_RENDER_ORDER_LAST);
         mapView.getLayers().add(baseLayer);
 
