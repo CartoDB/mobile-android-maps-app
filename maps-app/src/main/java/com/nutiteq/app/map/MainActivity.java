@@ -9,9 +9,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -39,13 +37,11 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carto.components.PanningMode;
-import com.carto.core.BinaryData;
 import com.carto.core.MapBounds;
 import com.carto.core.MapPos;
 import com.carto.core.MapPosVector;
@@ -54,11 +50,9 @@ import com.carto.core.ScreenBounds;
 import com.carto.core.ScreenPos;
 import com.carto.core.Variant;
 import com.carto.datasources.LocalVectorDataSource;
-import com.carto.datasources.PackageManagerTileDataSource;
 import com.carto.graphics.Color;
 import com.carto.layers.CartoBaseMapStyle;
 import com.carto.layers.CartoOfflineVectorTileLayer;
-import com.carto.layers.CartoOnlineVectorTileLayer;
 import com.carto.layers.TileSubstitutionPolicy;
 import com.carto.layers.VectorLayer;
 import com.carto.layers.VectorTileLayer;
@@ -72,15 +66,12 @@ import com.carto.styles.LineStyleBuilder;
 import com.carto.styles.MarkerStyle;
 import com.carto.styles.MarkerStyleBuilder;
 import com.carto.ui.MapView;
-import com.carto.utils.AssetUtils;
 import com.carto.utils.BitmapUtils;
 import com.carto.vectorelements.Billboard;
 import com.carto.vectorelements.Line;
 import com.carto.vectorelements.Marker;
 import com.carto.vectorelements.VectorElement;
-import com.carto.styles.CompiledStyleSet;
 import com.carto.vectortiles.MBVectorTileDecoder;
-import com.carto.utils.ZippedAssetPackage;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -95,11 +86,10 @@ import com.nutiteq.app.map.hamburger.HamburgerAdapter;
 import com.nutiteq.app.map.hamburger.HamburgerMenuGroupClickListener;
 import com.nutiteq.app.map.listener.MyMapEventListener;
 import com.nutiteq.app.map.listener.MyVectorElementEventListener;
-import com.nutiteq.app.nutimap3d.dev.BuildConfig;
 import com.nutiteq.app.nutimap3d.dev.R;
 import com.nutiteq.app.search.SearchableActivity;
-import com.nutiteq.app.settings.honeycomb.and.newer.SettingsActivity11;
 import com.nutiteq.app.settings.froyo.and.gingerbread.SettingsActivity9;
+import com.nutiteq.app.settings.honeycomb.and.newer.SettingsActivity11;
 import com.nutiteq.app.utils.Const;
 import com.nutiteq.app.utils.LanguageUtils;
 import com.nutiteq.nuticomponents.OrientationManager;
@@ -123,7 +113,6 @@ import com.nutiteq.nuticomponents.locationtracking.LocationTrackingDB;
 import com.nutiteq.nuticomponents.locationtracking.TrackData;
 import com.nutiteq.nuticomponents.packagemanager.PackageDownloadListActivity;
 import com.nutiteq.nuticomponents.packagemanager.PackageManagerApplicationInterface;
-import com.nutiteq.nuticomponents.packagemanager.PackageManagerComponent;
 
 import java.io.File;
 import java.io.IOException;
@@ -685,10 +674,28 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
                                 localDir.getAbsolutePath());
                     }
                     if (isMapReady) {
-                        isMapReady = packageManager.startPackageImport(
-                                Const.BASE_PACKAGE_ID, 1, new File(localDir,
-                                        Const.BASE_PACKAGE_ASSET_NAME)
-                                        .getAbsolutePath());
+                        Thread t = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (packageManager.getServerPackage("US-HI") == null) {
+                                    Thread.yield();
+                                }
+                                packageManager.startPackageDownload("US-HI");
+
+                                while (packageManagerRouting.getServerPackage("US-HI") == null) {
+                                    Thread.yield();
+                                }
+                                packageManagerRouting.startPackageDownload("US-HI");
+                            }
+                        });
+                        t.start();
+
+                        Toast.makeText(this, "Please wait while map package is being downloaded...", Toast.LENGTH_LONG).show();
+
+//                        isMapReady = packageManager.startPackageImport(
+//                                Const.BASE_PACKAGE_ID, 1, new File(localDir,
+//                                        Const.BASE_PACKAGE_ASSET_NAME)
+//                                       .getAbsolutePath());
                     }
 
                 } else {
@@ -706,10 +713,10 @@ public class MainActivity extends FragmentActivity implements OnChangedListener 
         if (isMapReady) {
             updateBaseLayer();
 
-            double x = Double.parseDouble(preferences.getString("xpos", "0.0"));
-            double y = Double.parseDouble(preferences.getString("ypos", "0.0"));
+            double x = Double.parseDouble(preferences.getString("xpos", "-17515813.6601"));
+            double y = Double.parseDouble(preferences.getString("ypos", "2429047.35331"));
             float r = preferences.getFloat("rotation", 0.0f);
-            float z = preferences.getFloat("zoom", 2.0f);
+            float z = preferences.getFloat("zoom", 6.5f);
             float t = preferences.getFloat("tilt", 90.0f);
 
             // set last mapView states or default if it's a first start
